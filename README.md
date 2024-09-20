@@ -1,4 +1,8 @@
-# `eips-wg-@@slug@@`: @@working-group@@ EIP Working Group
+# EIPs vs. ERCs
+
+> **_ATTENTION_**:
+> Please direct application-level proposals (ERCs) to [`ethereum/ERCs`](https://github.com/ethereum/ERCs),
+> and all other proposals (EIPs) to [`ethereum/EIPs`](https://github.com/ethereum/EIPs)
 
 <!-- TODO -->
 
