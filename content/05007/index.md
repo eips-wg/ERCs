@@ -129,7 +129,7 @@ Test cases are included in [test.js](./assets/test/test.js).
 
 Run in terminal:
 
-```shell
+```bash
 cd ../assets/eip-5007
 npm install truffle -g
 npm install

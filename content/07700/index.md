@@ -230,7 +230,7 @@ let iterations = 500000; // 500,000 iterations
 ##### 3. `sigKeygen`
 The data signer must be derived from the owner or manager keys of a node. Message payload for the required `sigKeygen` must then be formatted as:
 
-```text
+```
 Requesting Signature To Generate Keypair(s)\n\nOrigin: ${username}\nProtocol: ${protocol}\nExtradata: ${extradata}
 ```
 
@@ -263,7 +263,7 @@ Since the derived signer is wallet-specific, it can
 
 simultaneously in the background without ever prompting the user. Signature(s) `dataSig` accompanying the off-chain calldata must implement the following format in their message payloads:  
 
-```text
+```
 Requesting Signature To Update Off-Chain Data\n\nOrigin: ${username}\nData Type: ${dataType}\nData Value: ${dataValue}
 ```
 
@@ -277,7 +277,7 @@ The `dataSigner` is not stored on L1, and the clients must instead
 
 CCIP-Read-enabled contracts can then verify during resolution time that the `approval` attached with the signed calldata comes from the node's manager or owner, and that it approves the expected `dataSigner`. The `approval` signature must have the following message payload format:
 
-```text
+```
 Requesting Signature To Approve Data Signer\n\nOrigin: ${username}\nApproved Signer: ${dataSigner}\nApproved By: ${caip10}
 ```
 
