@@ -123,12 +123,12 @@ This contract MUST have the same function selector registered in the _Dictionary
 
 ## Rationale
 ### Comparison with [ERC-2535](../02535.md)
-While both this ERC and ERC-2535 offer [Function-Level Upgradeability](#function-level-upgradeability), there is a key distinction in their approaches. ERC-2535 maintains a mapping of implementation contracts (referred to as Facets in ERC-2535) within the Proxy itself. In contrast, this ERC stores the mapping in an external _Dictionary Contract_. This externalization of the mapping facilitates another significant feature of this standard: [Factory/Clone-Friendly & Simultaneous Upgradeability](#factoryclone-friendly--simultaneous-upgradeability). By separating the mapping from the Proxy, this design allows for easier cloning of contracts and their simultaneous upgrade, which is not as straightforward in the ERC-2535 framework.
+While both this ERC and ERC-2535 offer [Function-Level Upgradeability](#function-level-upgradeability), there is a key distinction in their approaches. ERC-2535 maintains a mapping of implementation contracts (referred to as Facets in ERC-2535) within the Proxy itself. In contrast, this ERC stores the mapping in an external _Dictionary Contract_. This externalization of the mapping facilitates another significant feature of this standard: [Factory/Clone-Friendly & Simultaneous Upgradeability](#factory-clone-friendly-simultaneous-upgradeability). By separating the mapping from the Proxy, this design allows for easier cloning of contracts and their simultaneous upgrade, which is not as straightforward in the ERC-2535 framework.
 
 ![Fig. Comparison with Diamond](./assets/images/comparison-with-diamond.svg)
 
 ### Separating the Dictionary and Proxy contracts:
-The separation of the Dictionary from the Proxy was driven by aligning with [Factory/Clone-Friendly & Simultaneous Upgradeability](#factoryclone-friendly--simultaneous-upgradeability).
+The separation of the Dictionary from the Proxy was driven by aligning with [Factory/Clone-Friendly & Simultaneous Upgradeability](#factory-clone-friendly-simultaneous-upgradeability).
 
 To achieve this, the management functionality of _Function Implementation Contract_ addresses were externalized as the _Dictionary Contract_ instead of including them within the _Proxy Contract_, a concept akin to the Beacon Proxy approach.
 
@@ -165,7 +165,7 @@ You should not connect your proxy with the _Dictionary Contract_ provided by an 
 While it is possible to store the _Dictionary Contract_ address in the code area (e.g., using Solidity's immutable or constant), it SHOULD be designed with caution, considering the possibility that if the _Dictionary Contract_'s admin is not the same as the _Proxy Contract_'s admin, the ability to manipulate the implementation could be permanently lost.
 
 ### Storage Conflict
-As mentioned in the above [Storage section](#storage--events-2). This design pattern involves multiple _Function Implementation Contracts_ sharing a single _Proxy Contract_ storage. Therefore, it's important to take care for preventing storage conflicts by using the storage management method that is considered most appropriate at the time.
+As mentioned in the above [Storage section](#storage-events). This design pattern involves multiple _Function Implementation Contracts_ sharing a single _Proxy Contract_ storage. Therefore, it's important to take care for preventing storage conflicts by using the storage management method that is considered most appropriate at the time.
 
 ### Mismatch Function Selector
 The _Dictionary Contract_ returns the _Function Implementation Contract_ address based on the _Proxy Contract_'s invoked function selector.
