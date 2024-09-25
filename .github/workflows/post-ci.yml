@@ -12,3 +12,11 @@ jobs:
     if: github.event.repository.owner.name == 'eips-wg'
     uses: eips-wg/build/.github/workflows/post-ci.yml@master
     secrets: inherit
+
+  dump_contexts_to_log:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
