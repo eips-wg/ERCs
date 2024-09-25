@@ -17,7 +17,7 @@ A data format describing a smart contract software package.
 
 ## Abstract
 
-This EIP defines a data format for *package manifest* documents,
+This EIP defines a data format for *package manifest* documents, developper
 representing a package of one or more smart contracts, optionally
 including source code and any/all deployed instances across multiple
 networks. Package manifests are minified JSON objects, to be distributed
