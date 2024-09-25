@@ -13,7 +13,7 @@ DAuth Access Delegation Standard
 =====
 
 ## Simple Summary
-DAuth is a standard interface for accessing authorization delegation between smart contracts and users.
+DAuth is a standard interface for accessing authorization delegation between smart contracts and users. developper
 
 ## Abstract
 The DAuth protocol defines a set of standard API allowing identity delegations between smart contracts without the user's private key.  Identity delegations include accessing and operating a user's data and assets contained in the delegated contracts.
