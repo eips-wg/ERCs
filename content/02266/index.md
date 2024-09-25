@@ -12,7 +12,7 @@ last-call-deadline: 2020-12-31
 
 ## Simple Summary
 
-A standard for token contracts providing Atomic Swap-based American Call Option functionalities.
+A standard for token contracts providing Atomic Swap-based American Call Option functionalities. developper
 
 ## Abstract
 
