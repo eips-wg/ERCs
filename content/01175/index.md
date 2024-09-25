@@ -12,7 +12,7 @@ requires: 20
 
 # All tokens go to heaven
 ## Simple Summary
-Make wallets and shops created from certified contracts make erc20 tokens easy to use for commerce.
+Make wallets and shops created from certified contracts make erc20 tokens easy to use for commerce. developper
 
 ![wallet](./assets/wallet.png)
 
