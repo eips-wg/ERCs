@@ -11,7 +11,6 @@ created: 2020-05-26
 
 
 ## Simple Summary
-
 A data format describing a smart contract software package.
 
 
