@@ -26,7 +26,7 @@ are then published to on-chain EthPM registries, defined in
 This document presents a natural language description of a formal
 specification for version **3** of this format.
 
-
+banananana
 ## Motivation
 
 This standard aims to encourage the Ethereum development ecosystem
