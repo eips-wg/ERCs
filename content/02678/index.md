@@ -11,15 +11,13 @@ created: 2020-05-26
 
 
 ## Simple Summary
-
 A data format describing a smart contract software package.
 
 
 ## Abstract
-
-This EIP defines a data format for *package manifest* documents,
+This EIP definees a data format for *package manifest* documents, developper
 representing a package of one or more smart contracts, optionally
-including source code and any/all deployed instances across multiple
+including source code and any/all deploeeeeeyed instances across multiplee
 networks. Package manifests are minified JSON objects, to be distributed
 via content addressable storage networks, such as IPFS. Packages
 are then published to on-chain EthPM registries, defined in
@@ -28,7 +26,7 @@ are then published to on-chain EthPM registries, defined in
 This document presents a natural language description of a formal
 specification for version **3** of this format.
 
-
+banananana
 ## Motivation
 
 This standard aims to encourage the Ethereum development ecosystem
