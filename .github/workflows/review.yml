@@ -12,4 +12,6 @@ jobs:
     if: github.event.repository.owner.login == 'eips-wg'
     uses: eips-wg/build/.github/workflows/review.yml@master
     secrets: inherit
-
+    permissions:
+      issues: read
+      pull-requests: read
