@@ -155,7 +155,7 @@ The weights represent relative importance on each factor. The total importance i
 | α   | Contribution value per each **`Finance`** contract from current proposal                  |
 | β   | Time they maintained **`Finance`** per each contract from current timestamp of a proposal |
 
-```math
+```
 (score per each ABT) = α * (contribution value) + β * (time that abt was maintained from now)
 ```
 
@@ -164,7 +164,7 @@ The weights represent relative importance on each factor. The total importance i
 Normalization is applied for data integrity on user's contribution in a DAO.
 Normalized score can be calculated from the state of submitting a proposal
 
-```math
+```
 (Normalized score per each ABT) = α * (contribution value)/(total contribution value at submitting tx) + β * (time that abt was maintained)/(time passed from genesis to proposal creation)
 ```
 
@@ -176,7 +176,7 @@ The multiplier is determined linearly from base factor (b) and multiplier(m).
 
 The equation for influence is :
 
-```math
+```
 (influence) = m * (sum(normalized_score))
 ```
 
@@ -184,12 +184,12 @@ The equation for influence is :
 
 For example, if a user has 3 **`Account-bound tokens`** with normalized score of each 1.0, 0.5, 0.3 and the locked token is 100, and multiplier is 0.5 and base factor is 1.5. Then the total influence is
 
-````math
+````
 0.5 * {(1.0 + 0.5 + 0.3) / 3} + 1.5 = 1.8
 
  The total voting power would be
 
-```math
+```
 (voting power) = 1.8 * sqrt(100)  = 18
 ````
 
