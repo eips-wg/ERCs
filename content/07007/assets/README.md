@@ -8,7 +8,7 @@ Run `npm install` in the root directory.
 ## Testing
 Try running some of the following tasks:
 
-```shell
+```bash
 npx hardhat help
 npx hardhat test
 REPORT_GAS=true npx hardhat test
