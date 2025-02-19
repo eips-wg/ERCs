@@ -27,7 +27,7 @@ The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SH
 
 List consumers (like wallets) MUST validate lists against the provided schema. List consumers MUST NOT connect to RPC providers present only in an invalid list.
 
-Lists MUST conform to the following JSON Schema:
+Lists MUST conform to the following JSON Schema: florp
 
 ```json
 {
