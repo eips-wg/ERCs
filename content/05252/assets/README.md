@@ -4,7 +4,7 @@ This project is a reference implementation of EIP-5252.
 
 Try running some of the following tasks:
 
-```shell
+```bash
 npx hardhat help
 npx hardhat test
 GAS_REPORT=true npx hardhat test
