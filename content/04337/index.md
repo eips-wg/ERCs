@@ -274,7 +274,7 @@ During the verification loop, in addition to calling `validateUserOp`, the `hand
 
 If the paymaster's validatePaymasterUserOp returns a "context", then `handleOps` must call `postOp` on the paymaster after making the main execution call.
 
-Maliciously crafted paymasters _can_ DoS the system. To prevent this, we use a reputation system. paymaster must either limit its storage usage, or have a stake. see the [reputation, throttling and banning section](#reputation-scoring-and-throttlingbanning-for-global-entities) for details.
+Maliciously crafted paymasters _can_ DoS the system. To prevent this, we use a reputation system. paymaster must either limit its storage usage, or have a stake. see the [reputation, throttling and banning section](#reputation-scoring-and-throttling-banning-for-global-entities) for details.
 
 The paymaster interface is as follows:
 
@@ -294,7 +294,7 @@ enum PostOpMode {
 }
 ```
 
-The EntryPoint must implement the following API to let entities like paymasters have a stake, and thus have more flexibility in their storage access (see [reputation, throttling and banning section](#reputation-scoring-and-throttlingbanning-for-global-entities) for details.)
+The EntryPoint must implement the following API to let entities like paymasters have a stake, and thus have more flexibility in their storage access (see [reputation, throttling and banning section](#reputation-scoring-and-throttling-banning-for-global-entities) for details.)
 
 ```solidity
 // add a stake to the calling entity
@@ -328,12 +328,12 @@ function withdrawTo(address payable withdrawAddress, uint256 withdrawAmount) ext
 When a client receives a `UserOperation`, it must first run some basic sanity checks, namely that:
 
 * Either the `sender` is an existing contract, or the `initCode` is not empty (but not both)
-* If `initCode` is not empty, parse its first 20 bytes as a factory address.  Record whether the factory is staked, in case the later simulation indicates that it needs to be.  If the factory accesses the global state, it must be staked - see [reputation, throttling and banning section](#reputation-scoring-and-throttlingbanning-for-global-entities) for details.
+* If `initCode` is not empty, parse its first 20 bytes as a factory address.  Record whether the factory is staked, in case the later simulation indicates that it needs to be.  If the factory accesses the global state, it must be staked - see [reputation, throttling and banning section](#reputation-scoring-and-throttling-banning-for-global-entities) for details.
 * The `verificationGasLimit` is sufficiently low (`<= MAX_VERIFICATION_GAS`) and the `preVerificationGas` is sufficiently high (enough to pay for the calldata gas cost of serializing the `UserOperation` plus `PRE_VERIFICATION_OVERHEAD_GAS`)
-* The `paymasterAndData` is either empty, or starts with the **paymaster** address, which is a contract that (i) currently has nonempty code on chain, (ii) has a sufficient deposit to pay for the UserOperation, and (iii) is not currently banned. During simulation, the paymaster's stake is also checked, depending on its storage usage - see [reputation, throttling and banning section](#reputation-scoring-and-throttlingbanning-for-global-entities) for details.
+* The `paymasterAndData` is either empty, or starts with the **paymaster** address, which is a contract that (i) currently has nonempty code on chain, (ii) has a sufficient deposit to pay for the UserOperation, and (iii) is not currently banned. During simulation, the paymaster's stake is also checked, depending on its storage usage - see [reputation, throttling and banning section](#reputation-scoring-and-throttling-banning-for-global-entities) for details.
 * The callgas is at least the cost of a `CALL` with non-zero value.
 * The `maxFeePerGas` and `maxPriorityFeePerGas` are above a configurable minimum value that the client is willing to accept. At the minimum, they are sufficiently high to be included with the current `block.basefee`.
-* The sender doesn't have another `UserOperation` already present in the pool (or it replaces an existing entry with the same sender and nonce, with a higher `maxPriorityFeePerGas` and an equally increased `maxFeePerGas`). Only one `UserOperation` per sender may be included in a single batch. A sender is exempt from this rule and may have multiple `UserOperations` in the pool and in a batch if it is staked (see [reputation, throttling and banning section](#reputation-scoring-and-throttlingbanning-for-global-entities) below), but this exception is of limited use to normal accounts.
+* The sender doesn't have another `UserOperation` already present in the pool (or it replaces an existing entry with the same sender and nonce, with a higher `maxPriorityFeePerGas` and an equally increased `maxFeePerGas`). Only one `UserOperation` per sender may be included in a single batch. A sender is exempt from this rule and may have multiple `UserOperations` in the pool and in a batch if it is staked (see [reputation, throttling and banning section](#reputation-scoring-and-throttling-banning-for-global-entities) below), but this exception is of limited use to normal accounts.
 
 If the `UserOperation` object passes these sanity checks, the client must next run the first op simulation, and if the simulation succeeds, the client must add the op to the pool. A second simulation must also happen during bundling to make sure the UserOperation is still valid.
 
@@ -438,7 +438,7 @@ After creating the batch, before including the transaction in a block, the bundl
   if this UserOperation reverted.
 * Remove the offending UserOperation from the current bundle and from mempool.
 * If the error is caused by a `factory` or a `paymaster`, and the `sender`
-  of the UserOp **is not** a staked entity, then issue a "ban" (see ["Reputation, throttling and banning"](#reputation-scoring-and-throttlingbanning-for-global-entities))
+  of the UserOp **is not** a staked entity, then issue a "ban" (see ["Reputation, throttling and banning"](#reputation-scoring-and-throttling-banning-for-global-entities))
   for the guilty factory or paymaster.
 * If the error is caused by a `factory` or a `paymaster`, and the `sender`
   of the UserOp **is** a staked entity, do not ban the `factory` / `paymaster` from the mempool.
@@ -526,7 +526,7 @@ The `initCode` MUST NOT be called directly from the entryPoint, but from another
 The contract created by this factory method should accept a call to `validateUserOp` to validate the UserOp's signature.
 For security reasons, it is important that the generated contract address will depend on the initial signature.
 This way, even if someone can create a wallet at that address, he can't set different credentials to control it.
-The factory has to be staked if it accesses global storage - see [reputation, throttling and banning section](#reputation-scoring-and-throttlingbanning-for-global-entities) for details.
+The factory has to be staked if it accesses global storage - see [reputation, throttling and banning section](#reputation-scoring-and-throttling-banning-for-global-entities) for details.
 
 NOTE: In order for the wallet to determine the "counterfactual" address of the wallet (prior to its creation),
 it should make a static call to the `entryPoint.getSenderAddress()`
