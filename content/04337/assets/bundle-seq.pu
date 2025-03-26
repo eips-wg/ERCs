@@ -1,0 +1,33 @@
+@startuml
+autonumber
+participant "EntryPoint" as ep
+participant "Account A" as account
+participant "Account B" as account2
+[->ep++ #gold: ""handleOps(userOps[])"":
+group Validations
+|||
+ep->account++ #blue: <font color=blue> ""validateUserOp""
+return ""deposit""
+|||
+ep->ep: deduct ""Account_A"" deposit
+|||
+ep->account2++ #green: <font color=green> ""validateUserOp""
+return ""deposit""
+|||
+ep->ep: deduct ""Account_B"" deposit
+|||
+end
+
+group Executions
+|||
+ep->account++ #blue: <font color=blue> ""executeUserOp""
+deactivate account
+ep->ep: refund ""Account_A""
+|||
+ep->account2++ #green: <font color=green> ""executeUserOp""
+deactivate account2
+ep->ep: refund ""Account_B""
+|||
+end
+ep-->[: ""compensate(beneficiary)""
+hide footbox
