@@ -58,7 +58,7 @@ Test cases are included in [test.js](./assets/test/test.js).
 
 Run in terminal:
 
-```shell
+```bash
 cd ../assets/eip-5633
 npm install
 npx hardhat test
