@@ -24,7 +24,7 @@ In addition to the atomic operation of `approve`-`transferFrom` mentioned above,
 
 The user encodes the content of the calls, attaches their signature to ensure its integrity, and sends it to the bundler. If the bundler considers the gas payment insufficient, they may choose not to submit it. However, if they approve the content of the calls, the signed transaction can be submitted. After execution, the user obtains the desired operations, and the bundler receives the fee.
 
-[EIP-4337](./04337.md) also implements gas payment delegation. BCE and [EIP-4337](./04337.md) are not mutually exclusive and can be implemented concurrently within an SCA.
+[EIP-4337](../04337.md) also implements gas payment delegation. BCE and [EIP-4337](../04337.md) are not mutually exclusive and can be implemented concurrently within an SCA.
 
 Based on empirical testing, BCE is simpler and more gas-efficient compared to alternative methods.
 
@@ -35,10 +35,7 @@ This ERC **REQUIRED** SCA to be implemented in the contract, where the Dapp comm
 
 _Batch Calls_ comprises multiple `Call` bytes, each defined by the encoding of `to`\`value`\`data` as follows:
 
-```mermaid
-graph LR
-A["to (20bytes)"] --- B["value (32bytes)"] --- C["data length (32bytes)"] --- D["data (bytes)"]
-```
+![](./assets/encoding.svg)
 
 Let:
 - `to`: The address of the called contract, corresponding to the Solidity address type, 20 bytes.
