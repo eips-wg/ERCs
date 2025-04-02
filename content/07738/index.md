@@ -63,7 +63,7 @@ Test cases are included in [NFTRegistryTest.test.ts](./assets/test/NFTRegistryTe
 
 Clone the repo and run:
 
-```shell
+```bash
 cd ../assets/eip-7738
 npm install --save-dev hardhat
 npm install

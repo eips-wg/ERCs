@@ -138,7 +138,7 @@ Test cases are implemented with the reference implementation.
 
 Run in terminal:
 
-```shell
+```bash
 truffle test ./test/test.js
 ```
 
@@ -146,7 +146,7 @@ truffle test ./test/test.js
 
 Run in terminal:
 
-```shell
+```bash
 truffle test ./test/testCloneable.js
 ```
 
