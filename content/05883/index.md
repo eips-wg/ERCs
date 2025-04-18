@@ -59,20 +59,7 @@ $n_i^{t}$ is the last timestamp (where a reward was booked on that account) of n
 
 **Flows**:
 
-```mermaid
-%% Approval of asset movement
- sequenceDiagram
-  AnyWallet->SmartContract: Requests transfer
-  SmartContract->All neighbours: Centralized notification via Websocket, EPNS, etc.
-  Neighbour->SmartContract: Approve Transfer
-  alt Threshold amount of approvers reached
-  alt Cumulative Score of approvers above threshold
-  SmartContract->NewAssetOwner: Transfer asset (e.g. identity token)
-  end
-  end
-  SmartContract->Neighbour: Add Reward to approver
-```
-
+![Approval of asset movement](./assets/sequence-diagram.svg)
 
 ## Rationale
 
