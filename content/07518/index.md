@@ -214,7 +214,7 @@ function removeRestriction(uint id) external returns (bool)
 
 ### `safeTransferFrom`
 
-```solidi
+```solidity
 function safeTransferFrom(address _from, address _to, uint256 _id, uint256 _value, bytes calldata _data) override external;
 ```
 
