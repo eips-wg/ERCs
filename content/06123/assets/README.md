@@ -32,17 +32,17 @@ We provide the essential steps to compile the contracts and run the provided uni
 ### Compile and run tests with Hardhat
 
 Install dependencies:
-```shell
+```bash
 npm i
 ```
 
 Compile:
-```shell
+```bash
 npx hardhat compile
 ```
 
 Run all tests:
-```shell
+```bash
 npx hardhat test
 ```
 

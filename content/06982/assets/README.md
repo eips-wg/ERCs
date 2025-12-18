@@ -4,7 +4,7 @@ As a reference implementation of EIP-6982 we use the Nduja Labs ERC721Lockable c
 
 To run the tests, run the following commands:
 
-```shell
+```bash
 npm i -g pnpm
 pnpm i
 pnpm test
