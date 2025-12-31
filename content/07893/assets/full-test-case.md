@@ -87,7 +87,7 @@ Test coverage for the SolvencyProof smart contract system, focusing on market sc
 ### Mathematical Model Application
 
 1. **Solvency Ratio (SR) Calculation**
-   ```math
+   ```
    SR = (TA / TL) × 100
    ```
    Applied in test case:
@@ -97,7 +97,7 @@ Test coverage for the SolvencyProof smart contract system, focusing on market sc
    ```
 
 2. **Risk-Adjusted Health Factor**
-   ```math
+   ```
    HF = (∑(Ai × Pi × Wi)) / (∑(Li × Pi × Ri))
    ```
    Test implementation:
@@ -106,7 +106,7 @@ Test coverage for the SolvencyProof smart contract system, focusing on market sc
    - Risk Factor (Ri): 1.2
 
 3. **Volatility Calculation**
-   ```math
+   ```
    σ = √(∑(rt - μ)²/n)
    ```
    Where:

@@ -41,7 +41,7 @@ We introduce a `wallet_grantPermissions` method for the DApp to request the Wall
 
 #### Permission schema
 
-```tsx
+```typescript
 type PermissionRequest = {
   chainId: Hex; // hex-encoding of uint256
   address?: Address;
@@ -71,7 +71,7 @@ type PermissionRequest = {
 
 An array of `PermissionRequest` objects is the final `params` field expected by the `wallet_grantPermissions` RPC.
 
-```tsx
+```typescript
 [
     {
         chainId: 123,
@@ -97,7 +97,7 @@ An array of `PermissionRequest` objects is the final `params` field expected by 
 
 #### Response Specification
 
-```tsx
+```typescript
 type PermissionResponse = PermissionRequest & {
   context: Hex;
   accountMeta?: {
@@ -127,7 +127,7 @@ If the request is malformed or the wallet is unable/unwilling to grant permissio
 
 An array of `PermissionResponse` objects is the final `result` field expected by the `wallet_grantPermissions` RPC.
 
-```tsx
+```typescript
 [
     {
         // original request with modifications
@@ -160,7 +160,7 @@ Permissions can be revoked by calling this method and the wallet will respond wi
 
 #### Request Specification
 
-```tsx
+```typescript
 type RevokePermissionsRequestParams = {
   permissionContext: "0x{string}";
 };
@@ -168,7 +168,7 @@ type RevokePermissionsRequestParams = {
 
 #### Response Specification
 
-```tsx
+```typescript
 type RevokePermissionsResponseResult = {};
 ```
 
@@ -182,7 +182,7 @@ However, if two signers or two permissions share the same type name, a DApp coul
 
 #### Signers
 
-```tsx
+```typescript
 // A wallet is the signer for these permissions
 // `data` is not necessary for this signer type as the wallet is both the signer and grantor of these permissions
 type WalletSigner = {
@@ -226,7 +226,7 @@ type AccountSigner = {
 
 #### Permissions
 
-```tsx
+```typescript
 // Native token transfer, e.g. ETH on Ethereum
 type NativeTokenTransferPermission = {
   type: "native-token-transfer";
@@ -294,7 +294,7 @@ type RateLimitPermission = {
 
 If the signer is specified as `wallet`, then the wallet itself manages the session. If the wallet approves the request, it MUST accept [ERC-5792](../05792.md)’s `wallet_sendCalls` with the `permissions` capability, which MAY include the session with a `permissionsContext`. For example:
 
-```tsx
+```typescript
 [
   {
     version: "1.0",
@@ -347,7 +347,7 @@ If the wallet is using CAIP-25 authorization, wallet SHOULD include `permissions
 
 Example:
 
-```json
+```js
 {
   //...
   "sessionProperties": {
@@ -368,7 +368,7 @@ Example:
 
 Example of formatting userOp signature using the [ERC-7679](../07679.md) UserOp Builder
 
-```jsx
+```typescript
 const getSignature = async ({
   address,
   userOp,
@@ -391,7 +391,7 @@ const getSignature = async ({
 
 When requesting permissions with a `type` of `account`, the returned data will be redeemable using the interfaces specified in ERC-7710. This allows the recipient of the permissions to use any account type (EOA or contract) to form a transaction or UserOp using whatever payment or relay infrastructure they prefer, by sending an internal message to the returned `permissions.signerMeta.delegationManager` and calling its `function redeemDelegation(bytes calldata _data, Action calldata _action) external;` function with the `_data` parameter set to the returned `permissions.permissionsContext`, and the `_action` data forming the message that the permissions recipient desires the user's account to emit, as defined by this struct:
 
-```
+```solidity
 struct Action {
     address to;
     uint256 value;
@@ -401,7 +401,7 @@ struct Action {
 
 A simple pseudocode example of using a permission in this way, given two ethers signers in the same context, where `alice` wants to request a permission from `bob` might be like this:
 
-```
+```typescript
 // Alice requests a permission from Bob
 const permissionsResponse = await bob.request({
   method: 'wallet_grantPermissions',
