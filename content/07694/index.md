@@ -13,11 +13,11 @@ requires: 3668, 7700
 
 ## Abstract
 
-The following standard is an extension to the cross-chain storage router protocol introducing the storage router for Solana blockchain. With this specification, any Ethereum L1 contract can defer a call to Solana blockchain as part of its core functionality, provided that the client is equipped to handle Solana transactions. It was previously possible to defer write and storage operations to other Ethereum L1 contracts, L2 contracts and off-chain databases, and this document extends that functionality to include alternative L1 chains. The data stored on Solana must be translated to [EIP-3668](./eip-3668)-compliant format by an appropriate HTTP gateway where it can be retrieved by generic Ethereum contracts. This standard allows Ethereum to utilise a broader range of cross-chain blockspaces.
+The following standard is an extension to the cross-chain storage router protocol introducing the storage router for Solana blockchain. With this specification, any Ethereum L1 contract can defer a call to Solana blockchain as part of its core functionality, provided that the client is equipped to handle Solana transactions. It was previously possible to defer write and storage operations to other Ethereum L1 contracts, L2 contracts and off-chain databases, and this document extends that functionality to include alternative L1 chains. The data stored on Solana must be translated to [EIP-3668](../03668.md)-compliant format by an appropriate HTTP gateway where it can be retrieved by generic Ethereum contracts. This standard allows Ethereum to utilise a broader range of cross-chain blockspaces.
 
 ## Motivation
 
-Cross-Chain Storage Router Protocol (CCIP-Store) introduced in [EIP-7700](./eip-7700), describes three external routers for routing storage to L1 contracts, L2s and databases. This document extends that specification by introducing a fourth storage router targeting Solana as the storage provider.
+Cross-Chain Storage Router Protocol (CCIP-Store) introduced in [EIP-7700](../07700.md), describes three external routers for routing storage to L1 contracts, L2s and databases. This document extends that specification by introducing a fourth storage router targeting Solana as the storage provider.
 
 L2s and databases both have centralising catalysts in their stack. For L2s, this centralising agent is the shared security with Ethereum mainnet. In case of databases, the centralising agent is trivial; it is the physical server hosting the database. In light of this, a storage provider that relies on its own independent consensus mechanism is preferred. This specification instructs how the clients should treat storage calls made to the Solana router.
 
@@ -121,7 +121,7 @@ Since EVM and SVM have differing architectures, it is important to define precis
 
 Using this strategy, most - if not all - current use-cases of `StorageRoutedToSolana()` are accounted for.
 
-Finally, in order to read the cross-chain data stored on Solana in an arbitrary Ethereum contract, it must be translated back into EVM tongue by an [EIP-3668](./eip-3668)-compliant HTTP gateway. The arguments for a generic call to the gateway URL must be specified in the `/`-delimited nested format as described in [EIP-7700](./eip-7700). The core of such a gateway must follow
+Finally, in order to read the cross-chain data stored on Solana in an arbitrary Ethereum contract, it must be translated back into EVM tongue by an [EIP-3668](../03668.md)-compliant HTTP gateway. The arguments for a generic call to the gateway URL must be specified in the `/`-delimited nested format as described in [EIP-7700](../07700.md). The core of such a gateway must follow
 
 ```js
 /* Pseudo-code of an ERC-3668-compliant HTTP gateway tunneling Solana content to Ethereum */

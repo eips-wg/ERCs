@@ -43,7 +43,7 @@ This EIP introduces hierarchical NFTs with splitting and merging capabilities, a
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174.
 
-Every compliant contract MUST implement this proposal, [EIP-721](./eip-721), [EIP-165](./eip-165), and [ERC-6150](./eip-6150)
+Every compliant contract MUST implement this proposal, [EIP-721](../00721.md), [EIP-165](../00165.md), and [ERC-6150](../06150.md)
 
 ```solidity
 pragma solidity ^0.8.0;
@@ -105,7 +105,7 @@ interface IERC7891 /* is IERC6150, IERC721, IERC165 */ {
 
 ## Rationale
 
-This EIP builds upon [ERC-721](./eip-721) and [ERC-6150](./eip-6150) to introduce a structured mechanism for share-based hierarchical NFTs, enabling splitting, merging, and fractional ownership directly within the token standard. The proposal reuses [ERC-6150](./eip-6150)'s parent-child architecture to preserve compatibility and reduce implementation complexity. Share management is embedded natively through internal mappings, allowing each token to track its fractional ownership independently without relying on external protocols. Functions like `mintSplit` and `mintMerge` are designed to reflect real-world asset behaviors, clearly distinguishing between asset decomposition and consolidation. The `sharePass` function facilitates redistribution of shares between tokens without requiring minting or burning, offering an efficient internal transfer mechanism. A `burn` function is included to allow share return to the parent on destruction, aligning with ownership. Overall, the interface is purposefully minimal and intuitive, designed for extensibility while maintaining gas efficiency and semantic clarity.
+This EIP builds upon [ERC-721](../00721.md) and [ERC-6150](../06150.md) to introduce a structured mechanism for share-based hierarchical NFTs, enabling splitting, merging, and fractional ownership directly within the token standard. The proposal reuses [ERC-6150](../06150.md)'s parent-child architecture to preserve compatibility and reduce implementation complexity. Share management is embedded natively through internal mappings, allowing each token to track its fractional ownership independently without relying on external protocols. Functions like `mintSplit` and `mintMerge` are designed to reflect real-world asset behaviors, clearly distinguishing between asset decomposition and consolidation. The `sharePass` function facilitates redistribution of shares between tokens without requiring minting or burning, offering an efficient internal transfer mechanism. A `burn` function is included to allow share return to the parent on destruction, aligning with ownership. Overall, the interface is purposefully minimal and intuitive, designed for extensibility while maintaining gas efficiency and semantic clarity.
 
 ## Backwards Compatibility
 
