@@ -258,7 +258,7 @@ struct ERC6358TransactionData {
 
 ### Architecture
 
-As shown in [Figure.1](#figure1-architecture), smart contracts deployed on multi-chains execute `o-transactions` of ERC-6358 tokens synchronously through the trustless off-chain synchronizers.   
+As shown in [Figure.1](#figure-1-architecture), smart contracts deployed on multi-chains execute `o-transactions` of ERC-6358 tokens synchronously through the trustless off-chain synchronizers.   
 
 - The ERC-6358 smart contracts are referred to as **Abstract Nodes**. The states recorded by the Abstract Nodes that are deployed on different blockchains respectively could be considered as copies of the global state, and they are ultimately consistent.  
 - **Synchronizer** is an off-chain execution program responsible for carrying published  `o-transactions` from the ERC-6358 smart contracts on one blockchain to the others. The synchronizers work trustless as they just deliver `o-transactions` with others' signatures, and details could be found in the [workflow](#workflow).
