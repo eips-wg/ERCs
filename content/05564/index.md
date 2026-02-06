@@ -264,7 +264,7 @@ There are potential denial of service (DoS) attack vectors that are not mitigate
 We consider the incentives to carry out such an attack to be low because **no monetary benefit can be obtained**
 However, to tackle potential spam, parsing providers may adopt their own anti-DoS attack methods. These may include ignoring the spamming users when serving announcements to users or, less harsh, de-prioritizing them when ordering the announcements. The indexed `caller` keyword may help parsing providers to effectively filter known spammers.
 
-Furthermore, parsing providers have a few options to counter spam, such as introducing staking mechanisms or requiring senders to pay a `toll` before including their `Announcement`. Moreover, a Staking mechanism may allow users to stake an unslashable amount of ETH (similarly to [ERC-4337](./eip-4337)), to help mitigate potential spam through _sybil attacks_ and enable parsing providers filtering spam more effectively.
+Furthermore, parsing providers have a few options to counter spam, such as introducing staking mechanisms or requiring senders to pay a `toll` before including their `Announcement`. Moreover, a Staking mechanism may allow users to stake an unslashable amount of ETH (similarly to [ERC-4337](../04337.md)), to help mitigate potential spam through _sybil attacks_ and enable parsing providers filtering spam more effectively.
 Introducing a `toll`, paid by sending users, would simply put a cost on each stealth address transaction, making spamming economically unattractive.
 
 ### Recipients' transaction costs

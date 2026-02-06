@@ -13,7 +13,7 @@ requires: 7702
 
 ## Abstract
 
-Minimal Avatar Smart Wallet (MASW) is an immutable delegate‑wallet that any EOA can designate via [EIP‑7702](./eip-7702) (txType `0x04`). Once designated, the wallet's code remains active for every subsequent transaction until the owner sends a new `0x04` to clear or replace it. During each delegated call the EOA is the avatar and MASW's code executes as the delegate at the same address, enabling atomic batched calls ([EIP‑712](./eip-712) signed) and optional sponsor gas reimbursement in ETH or [ERC‑20](./eip-20).
+Minimal Avatar Smart Wallet (MASW) is an immutable delegate‑wallet that any EOA can designate via [EIP‑7702](../07702.md) (txType `0x04`). Once designated, the wallet's code remains active for every subsequent transaction until the owner sends a new `0x04` to clear or replace it. During each delegated call the EOA is the avatar and MASW's code executes as the delegate at the same address, enabling atomic batched calls ([EIP‑712](../00712.md) signed) and optional sponsor gas reimbursement in ETH or [ERC‑20](../00020.md).
 
 The contract offers one primary function, `executeBatch`, plus two plug‑in hooks: a Policy Module for pre/post guards and a Recovery Module for alternate signature validation. Replay attacks are prevented by a global metaNonce, an expiry, and a chain‑bound `EIP‑712` domain separator. Standardising this seven‑parameter ABI removes wallet fragmentation while still allowing custom logic through modules.
 

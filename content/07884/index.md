@@ -112,7 +112,7 @@ It is important to notice that the `getOperationHandler` relies on the given arg
 
 #### Database flow
 
-The HTTP request made to the gateway follows the same standard proposed by the [EIP-3668](./eip-3668) where the URL receives `/{sender}/{data}.json` enabling an API to behave just like an smart contract would. However, the [EIP-712 Typed Signature](../00712.md) was introduced to enable authentication.
+The HTTP request made to the gateway follows the same standard proposed by the [EIP-3668](../03668.md) where the URL receives `/{sender}/{data}.json` enabling an API to behave just like an smart contract would. However, the [EIP-712 Typed Signature](../00712.md) was introduced to enable authentication.
 
 ![](./assets/d2.svg)
 
@@ -203,7 +203,7 @@ The client implementation would look as follows:
 
 ## Rationale
 
-The standard aims to enable offchain writing operations, designed to be a complement for the CCIP-Read ([ERC-3668](./eip-3668)) which is already widely adopted by the community.
+The standard aims to enable offchain writing operations, designed to be a complement for the CCIP-Read ([ERC-3668](../03668.md)) which is already widely adopted by the community.
 
 ## Backwards Compatibility
 
