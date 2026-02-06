@@ -80,7 +80,7 @@ This standard is fully backwards compatible with existing [ERC-721](../00721.md)
 
 ## Reference Implementation
 
-An example implementation is located in the [assets](../assets/eip-6982) directory.
+An example implementation is located in the [assets](./assets/README.md).
 
 It solves a specific use case: token's owners losing the ownership when staking the asset in a pool. The implementation allow the pool to lock the asset, leaving the ownership to the owner. In the [README](./assets/README.md) you can find more details about how to compile and test the contracts.
 
