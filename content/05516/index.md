@@ -1,0 +1,196 @@
+---
+eip: 5516
+title: Soulbound Multi-owner Tokens
+description: An interface for non-transferable, Multi-owner NFTs binding to Ethereum accounts
+author: Lucas Martín Grasso Ramos (@LucasGrasso), Matias Arazi (@MatiArazi)
+discussions-to: https://ethereum-magicians.org/t/EIP-5516-soulbound-multi-token-standard/10485
+status: Draft
+type: Standards Track
+category: ERC
+created: 2022-08-19
+requires: 165
+---
+
+## Abstract
+
+This EIP proposes a standard interface for non-transferable, multi-owner Soulbound tokens.
+Previous account-bound token standards face the issue of users losing their account keys or having them rotated, thereby losing their tokens in the process. This EIP provides a solution to this issue that allows for the recycling of SBTs.
+
+## Motivation
+
+This EIP was inspired by the main characteristics of the [ERC-1155](../01155.md) token standard and by articles in which benefits and potential use cases of Soulbound/Accountbound Tokens (SBTs) were presented.
+This design also allows for batch token transfers, saving on transaction costs. Trading of multiple tokens can be built on top of this standard and it removes the need to approve individual token contracts separately. It is also easy to describe and mix multiple fungible or non-fungible token types in a single contract.
+
+### Characteristics
+
+- The NFT will be non-transferable after the initial transfer
+- Multi-Token
+- Multi-Owner
+- Semi-Fungible
+
+### Applications
+
+- Academic Degrees
+- Code audits
+- POAPs (Proof of Attendance Protocol NFTs)
+
+## Specification
+
+The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.
+
+**Smart contracts implementing this EIP MUST implement all of the functions in the [ERC-5516](../05516.md) interface.**
+
+**Smart contracts implementing this EIP MUST implement the [EIP-165](../00165.md) `supportsInterface` function and MUST return the constant value `true` if `0x45b253ba` is passed through the `interfaceID` argument.**
+
+```solidity
+// SPDX-License-Identifier: CC0-1.0
+
+pragma solidity ^0.8.4;
+
+/**
+    @title Soulbound, Multi-Token standard.
+    @notice Interface of the EIP-5516
+    Note: The ERC-165 identifier for this interface is 0x45b253ba.
+ */
+
+interface IERC5516 {
+    /**
+     * @dev Emitted when `issuer` creates a new soulbound token and distributes it to `recipients[]`.
+     *
+     * @param tokenId The unique identifier of the newly created token.
+     * @param issuer The address of the entity that issued the credential.
+     * @param recipients Array of addresses that received the soulbound token.
+     * @param metadataURI URI pointing to the token metadata (e.g., IPFS hash).
+     */
+    event Issued(
+        uint256 indexed tokenId,
+        address indexed issuer,
+        address[] recipients,
+        string metadataURI
+    );
+
+    /**
+     * @dev Emitted when `who` voluntarily renounces their soulbound token under `tokenId`.
+     *
+     * @param tokenId The unique identifier of the renounced token.
+     * @param who The address that renounced ownership of the token.
+     */
+    event Renounced(uint256 indexed tokenId, address indexed who);
+
+    /**
+     * @dev Issues a new soulbound token to multiple recipients.
+     *
+     * Creates a unique token identifier and distributes it to all addresses in `recipients[]`.
+     * The token is non-transferable after issuance.
+     *
+     * Requirements:
+     * - `recipients[]` MUST NOT be empty.
+     * - All addresses in `recipients[]` MUST be non-zero.
+     * - All addresses in `recipients[]` MUST NOT already own a token under the generated `tokenId`.
+     * - Caller MUST be an authorized issuer.
+     *
+     * Emits an {Issued} event.
+     *
+     * @param recipients Array of addresses that will receive the soulbound token.
+     * @param metadataURI URI pointing to the token metadata (IPFS, Arweave, HTTP, etc.).
+     * @return tokenId The unique identifier of the newly created token.
+     */
+    function issue(
+        address[] memory recipients,
+        string calldata metadataURI
+    ) external returns (uint256 tokenId);
+
+    /**
+     * @dev Allows the token holder to voluntarily renounce their soulbound token.
+     *
+     * Once renounced, the holder no longer owns the token and cannot reclaim it.
+     * This action is irreversible.
+     *
+     * Requirements:
+     * - Caller MUST own the token under `tokenId`.
+     * - `tokenId` MUST exist.
+     *
+     * Emits a {Renounced} event.
+     *
+     * @param tokenId The unique identifier of the token to renounce.
+     */
+    function renounce(uint256 tokenId) external;
+
+    /**
+     * @dev Checks if a given address owns a specific soulbound token.
+     *
+     * @param who The address to check ownership for.
+     * @param tokenId The unique identifier of the token.
+     * @return True if `who` owns the token under `tokenId`, false otherwise.
+     */
+    function has(address who, uint256 tokenId) external view returns (bool);
+
+    /**
+     * @dev Returns the URI for a given token ID.
+     *
+     * The URI typically points to a JSON file containing token metadata.
+     * This may be an IPFS hash, Arweave transaction ID, or HTTP URL.
+     *
+     * Requirements:
+     * - `tokenId` MUST exist.
+     *
+     * @param tokenId The unique identifier of the token.
+     * @return The complete URI string for the token metadata.
+     */
+    function uri(uint256 tokenId) external view returns (string memory);
+}
+```
+
+## Rationale
+
+### [ERC-5516](../05516.md) as certificates
+
+The original idea for this proposal aroused from a neccesity of emitting on-chain certificates to multiple people. We thought that having to emit one token per account has redundant, and we originally developed a [ERC-1155](../01155.md) partial-compatible implementation.
+
+After revisiting our proposal, we thought that it would be cleaner to have a more minimal interface that just serves this purpose only, so we decided to drop the partial backwards compatibility with [ERC-1155](../01155.md).
+
+### SBT as a _spinoff_ of [EIP-1155](../01155.md)
+
+We saw the vision of the [ERC-1155](../01155.md#metadata) and tried to apply it to Soulbound/Accountbound tokens: We think that having the ability to prove that you own a token, not a particular identifier is valuable, and that it has real world use cases.
+
+### Metadata.
+
+We implement a standard method of obtaining metadata (`uri`) similar to the one defined in [ERC-1155](../01155.md#metadata):
+
+The URI value allows for ID substitution by clients. If the string `{id}` exists in any URI, clients MUST replace this with the actual token ID in hexadecimal form. This allows for a large number of tokens to use the same on-chain string by defining a URI once, for that large number of tokens.
+
+- The string format of the substituted hexadecimal ID MUST be lowercase alphanumeric: `[0-9a-f]` with no 0x prefix.
+- The string format of the substituted hexadecimal ID MUST be leading zero padded to 64 hex characters length if necessary.
+  Example of such a URI: `https://token-cdn-domain/{id}.json` would be replaced with `https://token-cdn-domain/000000000000000000000000000000000000000000000000000000000004cce0.json` if the client is referring to token ID 314592/0x4CCE0.
+
+### Guaranteed log trace
+
+The [ERC-5516](../05516.md) standard guarantees that event logs emitted by the smart contract will provide enough data to create an accurate record of all current token balances. A database or explorer may listen to events and be able to provide indexed and categorized searches of every [ERC-5516](../05516.md) token in the contract.
+
+### Exception handling
+
+Given the non-transferability property of SBTs, if a user's keys to an account get compromised or rotated, such user may lose the ability to associate themselves with the token.
+
+**Given the multi-owner characteristic of this EIP, SBTs will be able to bind to multiple accounts, providing a potential solution to the issue.**
+
+Multi-owner SBTs can also be issued to a contract account that implements a multi-signature functionality (As recommended in [EIP-4973](../04973.md#exception-handling)).
+
+### Multi-token
+
+The multi-token functionality permits the implementation of multiple token types in the same contract. Furthermore, all emitted tokens are stored in the same contract, preventing redundant bytecode from being deployed to the blockchain. It also facilitates transfer to token issuers, since all issued tokens are stored and can be accessed under the same contract address.
+
+## Backwards Compatibility
+
+This is a new token type and is not meant to be backward compatible with any existing tokens other than existing viable souls (any asset that can be identified by `[address,id]`).
+
+## Reference Implementation
+
+You can find an implementation of this standard [here](./assets/ERC5516.sol).
+
+## Security Considerations
+
+Needs discussion.
+
+## Copyright
+
+Copyright and related rights waived via [CC0](/LICENSE.md).
