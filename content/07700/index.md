@@ -193,7 +193,7 @@ function keygen(
 This `keygen()` function requires three variables: `username`, `spice` and `sigKeygen`. Their definitions are given below.
 
 ##### 1. `username`
-[CAIP-10](https://github.com/ChainAgnostic/CAIPs/blob/ad0cfebc45a4b8368628340bf22aefb2a5edcab7/CAIPs/../00010.md) identifier `username` is auto-derived from the connected wallet's checksummed address `wallet` and `chainId` using [EIP-155](./eip-155).
+[CAIP-10](https://github.com/ChainAgnostic/CAIPs/blob/ad0cfebc45a4b8368628340bf22aefb2a5edcab7/CAIPs/caip-10.md) identifier `username` is auto-derived from the connected wallet's checksummed address `wallet` and `chainId` using [EIP-155](../00155.md).
 
 ```js
 /* CAIP-10 identifier */

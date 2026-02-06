@@ -116,7 +116,7 @@ Members JSON-LD Schema. Every contract implementing this EIP SHOULD implement a 
 }
 ```
 
-For example, for an address on Ethereum Mainnet, the [CAIP-10](https://github.com/ChainAgnostic/CAIPs/blob/ad0cfebc45a4b8368628340bf22aefb2a5edcab7/CAIPs/../00010.md) address would be of the form `eip155:1:0x1234abcd`, while the DID address would be of the form `did:ethr:0x1234abcd`.
+For example, for an address on Ethereum Mainnet, the [CAIP-10](https://github.com/ChainAgnostic/CAIPs/blob/ad0cfebc45a4b8368628340bf22aefb2a5edcab7/CAIPs/caip-10.md) address would be of the form `eip155:1:0x1234abcd`, while the DID address would be of the form `did:ethr:0x1234abcd`.
 
 ### Proposals
 
