@@ -256,7 +256,7 @@ to verify that the signature is correct and the `UserOperation` actually pays fe
 A node/bundler MUST reject a `UserOperation` that fails the validation, meaning not adding it to the local mempool
 and not propagating it to other peers.
 
-### JSON-RPC API for [ERC-4337](./eip-4337)
+### JSON-RPC API for [ERC-4337](./index.md)
 
 In order to support sending `UserOperation` objects to bundlers, which in turn propagate them through the P2P mempool,
 we introduce a set of JSON-RPC APIs including `eth_sendUserOperation` and `eth_getUserOperationReceipt`.
@@ -632,11 +632,11 @@ either via on-chain delegate proxy contracts or via EIP-7702.
 When changing the underlying implementation, all Accounts MUST ensure that there are no conflicts in the storage layout
 of the two contracts.
 
-One common approach to this problem is often referred to as "diamond storage" and is fully described in [ERC-7201](./eip-7201).
+One common approach to this problem is often referred to as "diamond storage" and is fully described in [ERC-7201](../07201.md).
 
 ### Transient Storage
 
-Contracts using the [EIP-1153](./eip-1153) transient storage MUST take into account that ERC-4337 allows multiple
+Contracts using the [EIP-1153](../01153.md) transient storage MUST take into account that ERC-4337 allows multiple
 `UserOperations` from different unrelated `sender` addresses to be included in the same underlying transaction.
 The transient storage MUST be cleaned up manually if contains any sensitive information or is used for access control.
 
