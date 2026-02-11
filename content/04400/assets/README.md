@@ -11,19 +11,19 @@ This project provides a reference implementation of the proposed `ERC721Consumer
 ## Install
 
 In order to install the required dependencies you need to execute:
-```shell
+```bash
 npm install
 ```
 
 ## Compile
 
 In order to compile the solidity contracts you need to execute:
-```shell
+```bash
 npx hardhat compile
 ```
 
 ## Tests
 
-```shell
+```bash
 npx hardhat test
 ```

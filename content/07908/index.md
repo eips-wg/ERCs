@@ -349,7 +349,7 @@ if __name__ == "__main__":
 
 run script:
 
-```shell
+```bash
 pip install bip32utils eth_account
 
 python stms.py
